@@ -1,8 +1,10 @@
 #!/bin/sh
 SEP="/"
-DATE=$(date +"%H:%M")
+TIME=$(date +"%H:%M")
+DATE=$(date +"%d.%m")
 VOLUME=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2 * 100)}')
 VOL_INFO=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
+BAT=$(cat /sys/class/power_supply/BAT0/capacity)
 if echo "$VOL_INFO" | grep -q "\[MUTED\]"; then
     VOLUME_ICON=""
 else
@@ -17,5 +19,4 @@ if [ -n "$WIFI_INTRFC" ]; then
     fi
 fi
 
-xsetroot -name " $VOLUME_ICON $VOLUME $SEP $WIFI $SEP  $DATE"
-
+xsetroot -name " $VOLUME_ICON $VOLUME $SEP $WIFI $SEP  $BAT% $SEP  $DATE $SEP  $TIME"

@@ -6,3 +6,7 @@
 4. Move everything from dwm_dotfiles directory to home directory: ```mv * ~/ ```
 5. Compile dwm in ~/.config/dwm/ directory
 6. Reboot
+### **Screenshots**:
+![image](https://github.com/Commmdi/dwm_dotfiles/blob/main/screenshots/fastfetchscreenshot.png)
+![image](https://github.com/Commmdi/dwm_dotfiles/blob/main/screenshots/neovimscreenshot.png)
+![image](https://github.com/Commmdi/dwm_dotfiles/blob/main/screenshots/rofiscreenshot.png)
