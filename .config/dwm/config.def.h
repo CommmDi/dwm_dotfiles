@@ -71,7 +71,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[]     = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_bg1, "-nf", col_text1, "-sb", col_main, "-sf", col_text2, NULL };
 static const char *termcmd[]      = { "alacritty", NULL };
 static const char *filemanager[]  = { "thunar", NULL };
-static const char *scrot[]        = { "scrot", "~/Pictures/Screenshots/$(date).png", NULL };
+static const char *scrot[]        = { "scrot", "~/Pictures/Screenshots/$(date +%D-%H:%M).png", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
