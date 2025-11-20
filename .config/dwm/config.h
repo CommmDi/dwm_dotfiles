@@ -2,21 +2,20 @@
 #include <X11/XF86keysym.h>
 
 /* appearance */
-static const unsigned int gappx     = 18;       /* gap pixel between windows */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
+static const int topbar             = 0;        /* 0 means bottom bar */
 static const char *fonts[]          = { 
 	"JetBrainsMono:size=13",
 	"Font Awesome 6 Free Solid:size=13"
 };
 static const char dmenufont[]       = "JetBrainsMono:size=13";
-static const char col_bg1[]         = "#1e1e2e";
-static const char col_bg2[]         = "#1e1e2e";
-static const char col_text1[]       = "#c6a0f6";
-static const char col_text2[]       = "#1e1e2e";
-static const char col_main[]        = "#c6a0f6";
+static const char col_bg1[]         = "#152128";
+static const char col_bg2[]         = "#152128";
+static const char col_text1[]       = "#ccc9bf";
+static const char col_text2[]       = "#ffffff";
+static const char col_main[]        = "#9070d6";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_text1, col_bg1,   col_bg2 },
@@ -37,6 +36,9 @@ static const Rule rules[] = {
 	{ "steam",           NULL,       NULL,       1 << 2,       0,           -1 },
 	{ "PrismLauncher",   NULL,       NULL,       1 << 2,       0,           -1 },
 	{ "krita",           NULL,       NULL,       1 << 3,       0,           -1 },
+	{ "feh",             NULL,       NULL,       0,            1,           -1 },
+	{ "mpv",             NULL,       NULL,       0,            1,           -1 },
+	{ "Thunar",          NULL,       NULL,       0,            1,           -1 },
 };
 
 /* layout(s) */
@@ -48,9 +50,9 @@ static const int refreshrate = 60;  /* refresh rate (per second) for client move
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[T]",      tile },    /* first entry is default */
-	{ "[F]",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
+	{ "",      tile },    /* first entry is default */
+	{ "",      NULL },    /* no layout function means floating behavior */
+	{ "",      monocle },
 };
 
 /* key definitions */
@@ -69,12 +71,11 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[]     = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_bg1, "-nf", col_text1, "-sb", col_main, "-sf", col_text2, NULL };
 static const char *termcmd[]      = { "alacritty", NULL };
 static const char *filemanager[]  = { "thunar", NULL };
-static const char *flameshot[]    = { "flameshot", "gui", NULL };
-static const char *rofi[]         = { "rofi", "-show", "drun", NULL };
+static const char *scrot[]        = { "scrot", "~/Pictures/Screenshots/$(date).png", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_r,      spawn,          {.v = rofi } },
+	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = filemanager } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
@@ -84,13 +85,10 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
-	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY,                       XK_v,      togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
@@ -98,7 +96,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-        { MODKEY|ShiftMask,             XK_s,      spawn,          {.v = flameshot } },
+    { MODKEY|ShiftMask,             XK_s,      spawn,          {.v = scrot } },
 	{ MODKEY|ShiftMask,             XK_l,      spawn,          SHCMD("slock & systemctl suspend") },
 	{ 0, XF86XK_AudioLowerVolume,              spawn,          SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-") },
 	{ 0, XF86XK_AudioRaiseVolume,              spawn,          SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1") },

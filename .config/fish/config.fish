@@ -4,10 +4,8 @@ if status is-login
     end
 end
 
-starship init fish | source
 alias ss='sudo dnf install -y'
 alias rr='sudo dnf remove -y'
-alias ls='eza --colour=always --icons=auto'
-alias l='eza --colour=always --icons=auto -a'
+alias l='ls -a'
 alias upd='sudo dnf update -y && sudo dnf upgrade -y && flatpak update -y'
 alias ff='fastfetch'
