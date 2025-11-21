@@ -7,4 +7,6 @@
 5. Compile dwm in ~/.config/dwm/ directory
 6. Reboot
 ### **Screenshots**:
-empty rn
+![image](https://github.com/Commmdi/blob/main/screenshots/1.png)
+![image](https://github.com/Commmdi/blob/main/screenshots/2.png)
+![image](https://github.com/Commmdi/blob/main/screenshots/3.png)
